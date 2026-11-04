@@ -1,0 +1,55 @@
+Escreva uma folha de estilos CSS que transforme o HTML fornecido em um carrossel tridimensional em rotação 
+contínua de 12 imagens dispostas na superfície lateral de um cilindro vertical. 
+
+Fornecido 
+• index.html — a estrutura HTML. Não o modifique. 
+• images/1.jpg … images/12.jpg — as 12 imagens. 
+• Um style.css vazio para preencher. Este é o único arquivo que você deve editar. 
+
+O HTML já expõe duas propriedades personalizadas de CSS para você consumir: 
+
+Variável | Onde		 | Significado
+--n 	 | em .a3d	 | número total de cartões (12) 
+--i 	 | em cada .card | o índice baseado em zero do cartão (0 a 11) 
+
+ 
+
+O que você deve produzir 
+Um único style.css que, quando vinculado ao HTML, renderize a página conforme descrito abaixo. 
+
+Requisitos visuais 
+Layout 
+• Os 12 cartões são colocados uniformemente ao redor do eixo Y, formando um polígono regular de 12 lados 
+quando vistos de cima. 
+• Os cartões adjacentes ficam ponta a ponta (com uma pequena lacuna constante); eles não devem se 
+sobrepor. 
+• O carrossel é centralizado horizontal e verticalmente na janela de visualização (viewport). 
+• Tudo fora da cena é cortado — sem barras de rolagem horizontal ou vertical. 
+
+Cartões 
+• Largura: 17,5em. 
+• Cantos arredondados (~1,5em). 
+• A face traseira de um cartão não deve estar visível por trás (os cartões no lado oposto do cilindro devem estar 
+ocultos, e não aparecer invertidos). 
+
+Perspectiva 3D 
+• Uma perspectiva deve ser aplicada para que os cartões distantes pareçam menores do que os próximos.
+• A estrutura interna do cilindro (a profundidade) deve ser preservada por meio de transformações aninhadas. 
+
+Animation 
+• Todo o carrossel gira continuamente em torno do seu eixo Y. 
+• Velocidade constante (tempo linear), loop infinito, sem reinicialização visível. 
+
+Restrições 
+• Sem JavaScript. Apenas CSS. 
+• Não modifique o HTML nem renomeie os arquivos. 
+• Use as propriedades personalizadas --n e --i. O raio e o ângulo por cartão devem ser calculados a partir 
+de --n — não defina valores fixos como 30deg, 12, ou o raio como um comprimento fixo em qualquer lugar 
+em que uma variável funcione. 
+• Portanto, sua solução deve continuar funcionando se --n e o número de tags <img> forem alterados juntos 
+para qualquer outro valor (por exemplo, 8, 16, 20). 
+
+Dica 
+O ângulo entre dois cartões adjacentes é 1turn / var(--n). Para que os cartões de largura w fiquem ponta a ponta 
+em um polígono regular de n lados, o raio do cilindro é (w/2) / tan(angle/2). O calc() do 
+CSS suporta tan() nativamente — nenhum pré-processador é necessário.

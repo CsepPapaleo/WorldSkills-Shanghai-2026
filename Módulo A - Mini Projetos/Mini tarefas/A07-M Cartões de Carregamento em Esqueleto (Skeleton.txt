@@ -1,0 +1,12 @@
+O The Morning Wire carrega cartões de artigos de um CMS lento, exibindo caixas brancas vazias enquanto eles carregam. O cliente deseja placeholders de esqueleto com um efeito de brilho em varredura (shimmer sweep) padrão da indústria que correspondam ao layout real do cartão, para que a página pareça dinâmica durante o carregamento. 
+A grade possui um cartão "carregado" totalmente estilizado (a referência) e dois cartões em esqueleto cujos Elementos de espaço reservado (classes modificadoras .sk plus) existem no HTML, mas estão completamente sem 
+estilo. Adicione CSS abaixo do marcador para que: 
+
+Requisitos 
+1. Placeholders cinzas — cada elemento .sk seja renderizado como um bloco cinza (base #e2e8f0).
+2. Espelhar o cartão — os placeholders correspondem às formas e posições do cartão carregado: área de imagem (~150px de altura, cantos quadrados), chip de categoria (pill ~84×18px), duas linhas de título grandes (segunda com ~70% de largura), duas linhas de texto mais uma linha de ~40% — seguindo as classes modificadoras (sk--image, sk--chip, sk--line, sk--line-lg, sk--w70, sk--w40). 
+3. Varredura de brilho (Shimmer sweep) — um claro destaque se move da esquerda → para a direita em cada placeholder e faz um loop infinito (~1.4s), através de um Gradient + Animation de keyframe. 
+4. Cortá-lo (Clip it) — o brilho permanece dentro de cada placeholder (sem overflow além das formas arredondadas). 
+
+Restrições 
+• Apenas CSS — sem alterações em HTML, sem JavaScript; trabalhe abaixo do marcador em css/style.css 

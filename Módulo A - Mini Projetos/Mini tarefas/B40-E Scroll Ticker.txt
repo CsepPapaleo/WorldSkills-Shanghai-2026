@@ -1,0 +1,10 @@
+Implemente um texto fluido impulsionado por rolagem usando HTML, CSS e JavaScript. 
+Implemente o seguinte comportamento: 
+• O texto "WORLDSKILLS" deve ser exibido no centro da página. 
+• Quando a roda do mouse é rolada, novos textos devem aparecer do topo da tela, passar pelo centro e 
+desaparecer em direção à base, criando um fluxo contínuo. 
+• Rolar na direção oposta deve inverter o fluxo. 
+• O texto mais próximo do centro deve parecer maior e mais nítido, enquanto os textos em direção ao topo e à 
+base devem parecer inclinados e recuados com perspectiva. 
+• O fluxo deve continuar sem interrupções. 
+Consulte reference.png para ver a aparência esperada e demo.mp4 para o comportamento esperado.

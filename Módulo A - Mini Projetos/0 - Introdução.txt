@@ -1,0 +1,12 @@
+Introdução  
+Neste Mini Projeto de Teste, existem duas partes: Tarefas Iniciais e Mini Tarefas. Você deve implementar todas as tarefas iniciais. 
+
+Siga as instruções sobre quais mini tarefas devem ser implementadas. 
+As tarefas seguem a convenção de nomenclatura A/B/C, Índice Numérico, E/M/H para Fácil (Easy), Médio 
+(Medium), Difícil (Hard) e o nome. 
+
+As tarefas A são de implementação de design e tecnologias de navegador. As 
+tarefas B são de Frontend Development. As tarefas C são de Backend Development.
+ 
+Descrição do projeto e das tarefas 
+Certifique-se de implementar a seguinte tarefa inicial para configurar o ambiente de competição.

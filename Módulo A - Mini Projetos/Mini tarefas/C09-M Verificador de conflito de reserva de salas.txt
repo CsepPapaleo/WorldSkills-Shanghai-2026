@@ -1,0 +1,22 @@
+O co-working Harbour House aceita reservas de salas de reunião por telefone e vive fazendo reservas duplas. 
+Eles querem que o endpoint de reserva valide cada solicitação — capacidade, horário de funcionamento e 
+conflitos com reservas existentes. O código inicial fornece GET /rooms (3 salas com capacidades) e GET 
+/bookings (10 reservas existentes) a partir de data/. 
+
+Requisitos 
+Implemente POST /book — corpo JSON { "room_id", "date": "AAAA-MM-DD", "start": "HH:MM", "end": 
+"HH:MM", "attendees" } — validando nesta ordem: 
+1. Sala existe — room_id desconhecido → 404. 
+2. Capacidade — attendees entre 1 e a capacidade da sala → caso contrário, 422 "Room capacity exceeded". 
+3. Horário de funcionamento — todo o intervalo dentro de 08:00–20:00 → caso contrário, 422 "Outside 
+opening hours". 
+4. Intervalo de tempo — end estritamente depois de start → caso contrário, 422 "Invalid time range". 
+5. Sem sobreposição — sem conflito com uma reserva existente para a mesma sala e data; horários que 
+apenas se tocam (um termina exatamente quando o outro começa) são permitidos → caso 
+contrário, 409 "Time slot conflicts with booking <id>". 
+6. Sucesso — 201 com { "data": { booking } }, o novo id = maior id existente + 1. 
+
+Restrições 
+• Sem frameworks ou dependências — apenas PHP puro ou Node http puro.
+• Todas as respostas em JSON; mantenha as rotas GET do código inicial e o 404 para rotas desconhecidas. 
+• Os arquivos da API Bruno são fornecidos. 

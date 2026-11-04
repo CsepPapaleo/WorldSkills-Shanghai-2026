@@ -1,0 +1,21 @@
+Construa e estilize um Button com a Animation de foco (hover) e clique mostrada em example.mp4. Assista ao 
+vídeo primeiro — ele é a especificação da Animation. 
+
+Requisitos 
+1. Elemento Button — adicione um <button> com o rótulo "Button" à página, centralizado horizontal e 
+verticalmente na janela de visualização (por exemplo, flexbox no body), em um fundo de página neutro claro 
+(referência: #f0f0f0). 
+2. Estilo em repouso — cor do Button #725ac1: #725ac1 texto em negrito (referência: font-size: 
+25px, padding: 25px 50px) sobre um fundo claro/transparente, um Border Radius sólido de 2 
+px #725ac1 com border-radius: 15px e um cursor de ponteiro. 
+3. Preenchimento ao passar o mouse — ao passar o mouse, o Button se preenche com #725ac1 de baixo 
+para cima e o texto fica branco. A referência usa um box-shadow interno (box-shadow: inset 0 -100px 0 0 
+#725ac1); qualquer técnica que produza o mesmo preenchimento de baixo para cima é aceitável. 
+4. Pressionar — enquanto pressionado (:active), o Button diminui visivelmente de escala (referência: transform: 
+scale(0.9)). 
+5. Movimento — todas as alterações de estado são animadas suavemente (referência: transition ≈ 0.3s) e 
+revertem claramente ao tirar o mouse / soltar. 
+
+Restrições 
+• Apenas HTML e CSS — sem JavaScript. 
+• Tudo em um único index.html; sem Library, fontes ou assets externos. 

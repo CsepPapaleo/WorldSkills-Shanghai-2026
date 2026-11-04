@@ -1,0 +1,14 @@
+O "Road Trip Mix" da Wavelength deve permitir que os ouvintes marchem as faixas favoritas e vejam quantas 
+escolheram — lembrado enquanto a guia permanecer aberta. Cada li.track tem um Button de coração (.fav); 
+favoritar uma faixa adiciona a classe .track--fav a ela (já estilizada). Os elementos playlist e favCount e a chave de 
+armazenamento são fornecidos acima do marcador. Adicione JavaScript abaixo dele para entregar: 
+
+Requisitos 
+1. Alternar favorito — clicar no coração de uma faixa alterna .track--fav nessa faixa (favorito ↔ não favorito). 
+2. Contagem em tempo real — favCount sempre mostra o número atual de faixas favoritadas. 
+3. Lembrar — salve os favoritos no sessionStorage a cada alteração e restaure-os ao recarregar. Por ser o 
+armazenamento de sessão , os favoritos sobrevivem a uma atualização, mas são redefinidos quando a guia é 
+fechada e reaberta. 
+
+Restrições 
+• Não altere o HTML ou o CSS; trabalhe abaixo do marcador em js/script.js

@@ -1,0 +1,20 @@
+Implemente um efeito de foco (hover) no cartão, usando apenas CSS. Os estilos básicos de HTML e CSS (três 
+cartões de imagem centralizados) já foram fornecidos. Assista ao example.mp4 para ver o comportamento de 
+destino exato. 
+
+Requisitos 
+• Três cartões ficam lado a lado em .container (já estilizado: 250×400 px, cantos arredondados, fotos de fundo 
+de assets/). Cada cartão exibe um título e um subtítulo em .card-content. 
+• Ao passar o mouse sobre um cartão: 
+• o texto do cartão (.card-content) é revelado com uma Animation (ele fica oculto / deslocado no estado 
+normal e desliza/aparece suavemente ao passar o mouse); 
+• a imagem de fundo do cartão se desloca para a direita (por exemplo, background-position é animada 
+em direção a 100% 0). 
+• Os outros cartões (irmãos do cartão com o mouse em cima) ficam desfocados e com escala 
+reduzida para que o cartão em foco se destaque; o próprio cartão em foco permanece nítido em escala 
+total. 
+• Todas as alterações fazem a transição suavemente e revertem quando o mouse sai. 
+
+Restrições 
+• Apenas HTML e CSS — sem JavaScript. 
+• Não modifique o index.html; escreva todo o seu CSS em style.css.

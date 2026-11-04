@@ -1,0 +1,2 @@
+Crie uma página com Server-Side Rendering que exiba as informações atuais do servidor e a hora do servidor. 
+Cabe a você decidir quais informações exibir. O único requisito obrigatório é a hora do servidor. 

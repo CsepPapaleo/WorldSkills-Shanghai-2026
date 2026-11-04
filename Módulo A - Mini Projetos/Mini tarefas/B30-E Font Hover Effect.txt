@@ -1,0 +1,23 @@
+Implemente um efeito de texto responsivo ao mouse usando JavaScript. 
+Implemente o seguinte comportamento. 
+• O texto "WorldSkills Shanghai" deve ser exibido no centro da página. 
+• Quando o mouse se move, a espessura de cada letra deve mudar com base em sua distância do mouse. 
+• As letras mais próximas do mouse devem parecer mais grossas, e as letras mais afastadas devem parecer mais 
+finas. 
+• Todas as letras devem responder simultaneamente, cada uma com base em sua própria distância. 
+• A mudança de espessura deve ser contínua e suave, sem saltos. 
+Consulte reference.png para ver a aparência esperada e demo.mp4 para o comportamento esperado. 
+
+Requisitos 
+1. Título — o texto "WorldSkills Shanghai" é exibido no centro da página. 
+2. Resposta em tempo real — o peso/espessura das letras muda em tempo real à medida que o mouse se 
+move (nenhum clique necessário). 
+3. Perto = mais grosso — as letras mais próximas do cursor ficam visivelmente mais grossas (Font mais pesada) 
+do que o restante.
+4. Longe = mais fino — as letras distantes do cursor ficam visivelmente mais finas (Font mais leve) do que as 
+próximas. 
+5. Independência por letra — cada letra reage de forma independente e simultânea, com cada peso 
+determinado pela distância da própria letra até o cursor (um Gradient suave de pesos ao longo da palavra), e 
+não todas as letras mudando juntas. 
+6. Interpolation suave — a mudança de espessura é contínua e suave (interpolada), sem saltos entre pesos 
+discretos. 

@@ -1,0 +1,21 @@
+A Regal Picture House quer a tabela de classificação de bilheteria de março de 2026: quanto cada filme 
+arrecadou (excluindo reservas canceladas), listando apenas os filmes que obtiveram lucro significativo. As seis 
+tabelas — ratings, movies, screens, customers, screenings, bookings — são mostradas no esquema. 
+
+Requisitos 
+Escreva um SELECT que retorne: 
+1. Colunas nesta ordem: movie_title, total_revenue — a receita é SUM(seats × price_per_seat) arredondada 
+para 2 casas decimais. 
+2. Conte apenas reservas concluídas (canceladas excluídas). 
+3. Conte apenas exibições em março de 2026 (uma exibição em fevereiro não deve contar). 
+4. Exclua filmes cuja receita total seja £500 ou menos. 
+5. Ordenado por total_revenue em ordem decrescente, depois por movie_title em ordem crescente em caso de 
+empate (os dados contêm um empate exato de receita). 
+
+Restrições 
+• Apenas SQL padrão; não modifique os arquivos da página. 
+Como executar 
+Abra media/index.html no seu navegador — sem servidor. A consulta é executada em tempo real conforme você 
+digita; quando o selo mostrar PASS, clique em Save SQL para gravar result/result.sql (sua submissão). 
+Referência 
+media/sample/ — a página em um estado PASS (a consulta do editor mascarada).

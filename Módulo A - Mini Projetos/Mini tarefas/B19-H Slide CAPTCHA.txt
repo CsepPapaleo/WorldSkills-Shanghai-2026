@@ -1,0 +1,38 @@
+Crie um CAPTCHA de imagem do tipo deslizar para encaixar. Uma foto aleatória é exibida com um pequeno 
+pedaço quadrado recortado dela; o fragmento ausente fica na borda esquerda da imagem. O usuário arrasta um 
+controle deslizante — apenas na horizontal — para deslizar o fragmento até que ele preencha a lacuna. 
+Quando ele se posiciona perto o suficiente, o desafio é bem-sucedido e um novo é carregado automaticamente. 
+Assista ao vídeo de referência captcha-example.mp4 para ver o comportamento esperado. 
+O HTML e o CSS são totalmente fornecidos. A cena tem 600 × 400 px, o buraco e o pedaço são quadrados 
+de 60 × 60 px , e o buraco fica sempre em uma linha fixa (HOLE_Y = 100 px a partir do topo). Essas constantes 
+já estão declaradas no esqueleto do script.js — use-as. 
+
+Requisitos
+1. Imagem aleatória — cada desafio usa uma imagem escolhida aleatoriamente entre as cinco fornecidas 
+(assets/1.jpg … assets/5.jpg, listadas no array IMAGES). Desenhe-a como o background da cena (o CSS já 
+define o tamanho dos backgrounds para 600 × 400). 
+2. Recorte aleatório — cada desafio escolhe um X de destino aleatório para o buraco na linha fixa HOLE_Y. 
+O destino deve estar a pelo menos 100 px da borda esquerda (para que o quebra-cabeça nunca comece 
+já resolvido) e o buraco deve permanecer totalmente dentro da cena. Mostre #hole (o quadrado branco) 
+nessa posição. 
+3. O pedaço mostra o fragmento ausente — renderize #piece com a mesma imagem como seu background, 
+deslocada via background-position para que o pedaço exiba exatamente o quadrado que foi 
+recortado em (targetX, HOLE_Y). O pedaço começa na borda esquerda da cena (x = 0), na mesma linha do 
+buraco. 
+4. Controlador deslizante apenas horizontal — arrastar #handle com o ponteiro (use Pointer 
+Events: pointerdown / pointermove / pointerup, com captura de ponteiro) move o pedaço horizontalmente, 
+em proporção ao deslocamento da alça, e a alça rastreia a posição do pedaço. O pedaço nunca se move 
+verticalmente e é Limitado para permanecer totalmente dentro da cena em ambas as pontas. 
+5. Verificação de tolerância — quando o ponteiro é solto, se a posição X do pedaço estiver dentro 
+de TOLERANCE (5 px) do destino: encaixe o pedaço exatamente no destino, mostre o estado de 
+sucesso (adicione a classe solved a #scene e uma mensagem de sucesso em #status — o CSS para ambos é 
+fornecido) e pare de responder a novos arrastes. Se estiver fora da tolerância, o pedaço simplesmente 
+permanece onde foi solto e o usuário pode continuar arrastando. 
+6. Ratualização em caso de sucesso — cerca de 1,5 s após o sucesso, um novo desafio é carregado 
+automaticamente: uma nova imagem aleatória, um novo X de destino aleatório, o pedaço e a alça 
+retornam à borda esquerda e o estado de sucesso é limpo. 
+
+Restrições 
+• Apenas JavaScript puro — sem libraries, Frameworks ou CDNs (ambiente offline). 
+• Modifique apenas o script.js; index.html e style.css devem permanecer como fornecidos. 
+• Sem recarregamento de página para a atualização — o novo desafio é gerado no lugar. 

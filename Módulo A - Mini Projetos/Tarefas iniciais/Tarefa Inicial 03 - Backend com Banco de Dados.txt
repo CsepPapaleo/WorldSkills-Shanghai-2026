@@ -1,0 +1,2 @@
+Na pasta de ativos de mídia, você encontrará alguns registros de dados. Insira os dados no banco de dados 
+MySQL e exiba os dados em uma tabela em HTML. 
