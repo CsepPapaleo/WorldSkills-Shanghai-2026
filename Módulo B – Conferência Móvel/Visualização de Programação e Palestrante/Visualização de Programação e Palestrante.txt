@@ -1,0 +1,23 @@
+• Um interruptor ou navegação deve permitir alternar entre a visualização de Sessões e a visualização de Palestrantes. 
+• A visualização padrão mostra a lista de Sessões. 
+• A lista de programação deve exibir: Título da Sessão, Nome do Palestrante, Horário e Sala. 
+• Sempre que um nome de sala/local for exibido (lista de programação, detalhes da sessão, lista de 
+palestrantes, perfil do palestrante, modal do mapa), exiba um pequeno ponto colorido que corresponda à cor 
+do mapa do local para aquele local. 
+• Os nomes de exibição do local devem ser consistentes em todos os lugares: Sala 1, Sala 2, Sala 3, Sala 4 e 
+Auditório. 
+• A lista de palestrantes deve exibir: Nome do Palestrante, Foto de Perfil e Lista de Sessões (com pontos 
+coloridos de localização onde as salas são exibidas). 
+• Existem quatro dias na visualização da programação; o dia padrão é o Dia 1. 
+• Os dados fornecidos contêm 16 sessões (quatro por dia). Os IDs de sessão "1"…"16" mapeiam um para um 
+para os carimbos 1…16 para presença. 
+• Os usuários devem ser capazes de navegar entre o Dia 1, Dia 2, Dia 3 e Dia 4. 
+• A lista de sessões deve ser rolável sem quebrar a barra de navegação inferior. 
+• Os usuários podem abrir uma visualização de detalhes da sessão que mostra as informações da sessão e o 
+código de presença para essa sessão. 
+• Um controle de Voltar claro (Button ou link) retorna dos detalhes da sessão (ou perfil do palestrante) para a 
+lista anterior. 
+• A lista de palestrantes e os perfis devem ser abrangentes, modernos e elegantes, com uma hierarquia de 
+informações clara.  
+• Se o JSON da programação falhar ao carregar, mostre uma mensagem amigável ao usuário no Element com 
+data-testid="error-message". 

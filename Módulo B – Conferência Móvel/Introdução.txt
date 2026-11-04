@@ -1,0 +1,138 @@
+Introdução  
+Uma Single Page Application (SPA) apenas no lado do cliente que serve como um companheiro de conferência 
+móvel. A aplicação deve ser executada a partir de um único ponto de entrada HTML e não deve realizar 
+recarregamentos completos da página ao alternar entre visualizações. 
+
+Descrição do projeto e das tarefas 
+• Ponto de entrada HTML único (index.html). 
+• Sem código no lado do servidor; todos os dados devem ser carregados a partir dos arquivos JSON estáticos 
+fornecidos (nenhum servidor de API de backend é necessário ou permitido). 
+• Mobile-First Design avaliado em cerca de 375 px de largura (abaixo de 768px); layout para tablet avaliado em 
+768 px de largura ou mais. 
+• Uma barra de navegação inferior persistente deve estar visível em todas as visualizações. 
+• Use um tema visual claro (fundos claros e texto escuro) adequado para um aplicativo de companheiro de 
+conferência. 
+• Mensagens de erro voltadas ao usuário (falha no carregamento de dados, código de carimbo inválido, etc.) 
+devem aparecer no Element com data-testid="error-message" e devem ser escritas para usuários finais (não 
+rastreamentos brutos de HTTP/pilha). 
+
+Visualizações 
+• Programação/Palestrantes — lista de sessões, detalhes da sessão, lista de palestrantes e perfil do palestrante 
+• Mapa do Local — mapa interativo em CSS Grid com detalhes das sessões de salas e auditório 
+• Carimbos de Presença — colete códigos de presença exclusivos por sessão 
+• Cabine de Fotos — composição de imagem com sobreposição de moldura, download e compartilhamento 
+• A navegação inferior deve incluir quatro abas que alternam entre estas visualizações: Programação, Mapa, 
+Carimbos, Foto. 
+
+Navegação e Single Page Application 
+• A aplicação deve se comportar como uma verdadeira SPA: nenhum recarregamento completo do documento 
+HTML ocorre ao navegar entre as visualizações de Programação/Palestrantes, Mapa do Local, Carimbos de 
+Presença e Cabine de Fotos. 
+• O hash da URL deve ser atualizado ao navegar entre as visualizações. 
+• Use roteamento baseado em hash com estas quatro rotas: #/schedule, #/map, #/stamps e #/photo. 
+• O deep linking deve funcionar: navegar diretamente para a URL hash de uma visualização renderiza a 
+visualização correta. 
+• A barra de navegação inferior deve destacar visualmente a aba ativa no momento com base no estado da 
+rota atual. 
+• O layout deve seguir o esboço da interface do usuário fornecido e as capturas de tela de referência 
+incorporadas neste documento. Exceto onde explicitamente declarado o contrário, as capturas de tela e 
+esboços incorporados são apenas para referência e não precisam ser reproduzidos exatamente.
+
+Dados JSON fornecidos 
+• api/schedule.json — array completo de sessões da programação. Cada sessão inclui: id, title, speaker, time, 
+endTime, room, roomName e day. 
+• api/rooms.json — lista de locais do evento (id, name, capacity), incluindo room1–room4 e hall. 
+• api/rooms/{roomId}/sessions.json — sessões para um local específico (room1–room4, hall). 
+• Valores de id de sala no JSON: "room1", "room2", "room3", "room4", "hall" (use estes em caminhos de 
+arquivo e manipuladores de zona interativa). 
+• Nomes dos locais nos dados: Room 1, Room 2, Room 3, Room 4, Hall. O Hall hospeda as sessões de abertura 
+e encerramento (e sessões relacionadas do hall conforme fornecido). 
+• Os competidores devem carregar esses arquivos JSON diretamente (por exemplo, via fetch de Relative Path 
+ou agrupando/importando os arquivos). Não implemente ou dependa de um servidor REST API separado. 
+
+Ativos de mídia fornecidos 
+• Imagens de sobreposição de moldura em frames/ (variantes Normal 1080×1080 e/ou Wide 1600×1080; nem 
+todo design possui ambas as proporções). 
+• Arquivos de dados JSON estáticos em api/ (programação, salas e sessões por local) 
+• Imagens dos palestrantes em speakers/ 
+• Gráficos de selos em stamps/ (16 selos) 
+• PDF de esboço/mockup da UI (se fornecido); as capturas de tela de referência incorporadas neste documento 
+mostram os layouts e estados esperados. 
+
+Instruções ao Participante 
+• Você precisa enviar seu projeto para o repositório git que você criou na plataforma de submissão. 
+• Por favor, acesse o painel da plataforma de submissão usando as credenciais que você recebeu. 
+• Por favor, inclua um expert_readme.txt sobre como colocar seu projeto em funcionamento e onde acessar 
+seu projeto. 
+
+Lista de verificação de implementação 
+• Roteamento SPA com quatro visualizações; sem recarregamento completo; deep link funciona. 
+• Filtro de dia da programação + modos Sessões/Palestrantes + detalhes da sessão com código de presença. 
+• Lista/perfil de palestrantes com fotos e pontos coloridos de localização. 
+• Mapa do local grid-template-areas mobile + tablet; Hall + Room 1–4 interativos; abrir/fechar modal + 
+redução de movimento. 
+• 16 selos, formulário de código fixo, progresso X/16 + <progress>, persistir coleção, Animation de coleta. 
+• Composição de capa de cabine de fotos, seis designs de moldura, Normal/Wide com regras de desativação, 
+nome de arquivo de download, Web Share + fallback. 
+• Todos os atributos data-testid obrigatórios presentes.
+
+Especificações de Testes Automatizados 
+Os seguintes atributos data-testid são obrigatórios. Os testes automatizados falharão se algum estiver faltando 
+ou incorreto. 
+• Aba de navegação inferior — Schedule deve usar data-testid="nav-schedule". 
+• Aba de navegação inferior — Venue Map deve usar data-testid="nav-map". 
+• Aba de navegação inferior — Attendance Stamps deve usar data-testid="nav-stamps". 
+• Aba de navegação inferior — Photo Booth deve usar data-testid="nav-photo". 
+• O container da lista de Schedule deve usar data-testid="schedule-list". 
+• O container da mensagem de erro deve usar data-testid="error-message". 
+• A zona 1 da sala do Mapa do Local deve usar data-testid="zone-room1". 
+• A zona 2 da sala do Mapa do Local deve usar data-testid="zone-room2". 
+• A zona 3 da sala do Mapa do Local deve usar data-testid="zone-room3". 
+• A zona 4 da sala do Mapa do Local deve usar data-testid="zone-room4". 
+• A zona do Hall do Mapa do Local deve usar data-testid="zone-hall". 
+• O modal de detalhes da sala deve usar data-testid="room-modal". 
+• O Button de fechar modal deve usar data-testid="modal-close-btn". 
+• O input de upload de foto deve usar data-testid="photo-upload". 
+• O Button de download deve usar data-testid="download-btn". 
+• O Button de compartilhar deve usar data-testid="share-btn". 
+• O controle de proporção — Normal deve usar data-testid="ratio-normal". 
+• O controle de proporção — Wide deve usar data-testid="ratio-wide". 
+Verificações assistidas opcionais podem ser fornecidas como scripts de console que podem ser colados.
+
+Dados JSON fornecidos 
+• api/schedule.json — array completo de sessões da programação. Cada sessão inclui: id, title, speaker, time, 
+endTime, room, roomName e day. 
+• api/rooms.json — lista de locais do evento (id, name, capacity), incluindo room1–room4 e hall. 
+• api/rooms/{roomId}/sessions.json — sessões para um local específico (room1–room4, hall). 
+• Valores de id de sala no JSON: "room1", "room2", "room3", "room4", "hall" (use estes em caminhos de 
+arquivo e manipuladores de zona interativa). 
+• Nomes dos locais nos dados: Room 1, Room 2, Room 3, Room 4, Hall. O Hall hospeda as sessões de abertura 
+e encerramento (e sessões relacionadas do hall conforme fornecido). 
+• Os competidores devem carregar esses arquivos JSON diretamente (por exemplo, via fetch de Relative Path 
+ou agrupando/importando os arquivos). Não implemente ou dependa de um servidor REST API separado. 
+
+Ativos de mídia fornecidos 
+• Imagens de sobreposição de moldura em frames/ (variantes Normal 1080×1080 e/ou Wide 1600×1080; nem 
+todo design possui ambas as proporções). 
+• Arquivos de dados JSON estáticos em api/ (programação, salas e sessões por local) 
+• Imagens dos palestrantes em speakers/ 
+• Gráficos de selos em stamps/ (16 selos) 
+• PDF de esboço/mockup da UI (se fornecido); as capturas de tela de referência incorporadas neste documento 
+mostram os layouts e estados esperados. 
+
+Instruções ao Participante 
+• Você precisa enviar seu projeto para o repositório git que você criou na plataforma de submissão. 
+• Por favor, acesse o painel da plataforma de submissão usando as credenciais que você recebeu. 
+• Por favor, inclua um expert_readme.txt sobre como colocar seu projeto em funcionamento e onde acessar 
+seu projeto. 
+
+Lista de verificação de implementação 
+• Roteamento SPA com quatro visualizações; sem recarregamento completo; deep link funciona. 
+• Filtro de dia da programação + modos Sessões/Palestrantes + detalhes da sessão com código de presença. 
+• Lista/perfil de palestrantes com fotos e pontos coloridos de localização. 
+• Mapa do local grid-template-areas mobile + tablet; Hall + Room 1–4 interativos; abrir/fechar modal + 
+redução de movimento. 
+• 16 selos, formulário de código fixo, progresso X/16 + <progress>, persistir coleção, Animation de coleta. 
+• Composição de capa de cabine de fotos, seis designs de moldura, Normal/Wide com regras de desativação, 
+nome de arquivo de download, Web Share + fallback. 
+• Todos os atributos data-testid obrigatórios presentes.

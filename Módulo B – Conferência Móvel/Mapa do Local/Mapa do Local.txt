@@ -1,0 +1,24 @@
+• As zonas do mapa seguem a captura de tela e incluem o seguinte: Sala 1, Sala 2, Sala 3, Sala 4, Auditório, 
+Área Pública, Road Show, Entrada, Loja, Restaurante e Corredor (horizontal e vertical). 
+• O layout móvel (padrão, abaixo de 768 px) usa um arranjo de grade de 2 colunas consistente com o esboço 
+fornecido. Os corredores estão ocultos no celular. 
+• O layout para tablet (largura mínima: 768 px) usa um arranjo de grade de 3 colunas consistente com o 
+esboço fornecido. Os corredores estão visíveis no tablet. 
+• As cores das zonas são fixas da seguinte forma (cores base / cores de Font e cores de borda): Sala 1 = 
+#3D7AE8 (azul), Sala 2 = #1FA887 (verde-azulado), Sala 3 = #7C5EC7 (roxo), Sala 4 = #D45F84 (rosa) e 
+Auditório = #C48A2A (âmbar). 
+• Road Show = #2A9BB8 (ciano). Área Pública = #6D84A8 (ardósia). A Entrada, ambos os Corredores, o 
+Restaurante e a Loja compartilham a mesma cor base neutra clara #8A99B0. 
+• Os preenchimentos das zonas devem ser sutis: renderize o fundo de cada zona como sua cor base tingida 
+com branco (aproximadamente 10–16% da cor base sobre branco), com uma borda correspondente 
+ligeiramente mais forte e texto escuro legível por cima. Os pontos coloridos de localização (lista de 
+programação, detalhes da sessão, lista de palestrantes, perfil do palestrante, modal do mapa) usam a cor 
+base sólida para que os pontos correspondam visualmente às suas zonas no mapa. 
+• Zonas interativas: Sala 1–4 e Auditório. Clicar em uma mostra os dados de sessões JSON correspondentes 
+carregados e exibe um painel deslizante para cima com as sessões daquele local. 
+• Um painel deslizante para cima deve aparecer e ser preenchido com as sessões do local (título, palestrante, 
+horário, dia, conforme disponível). 
+• Tocar na área vazia/de fundo ou no Button Concluído fecha o modal. 
+• Uma transição deslizante faz a Animation de exibição e ocultação do modal. 
+• O movimento deve respeitar a preferência de redução de movimento do sistema.  
+• Se o carregamento do JSON de sessões da sala falhar, mostre uma mensagem amigável ao usuário no Element com data-testid="error-message". 

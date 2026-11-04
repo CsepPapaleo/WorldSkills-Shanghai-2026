@@ -1,0 +1,20 @@
+• Os usuários podem obter um código de presença associado às sessões e inseri-lo para coletar selos. 
+• Existem exatamente 16 selos e 16 sessões. O selo número N corresponde ao ID da sessão "N", e o Dia 
+impresso no gráfico do selo N corresponde ao dia daquela sessão (selos 1–4 → Dia 1, 5–8 → Dia 2, 9–12 → 
+Dia 3, 13–16 → Dia 4). 
+• O código de presença é único e é uma string de 8 caracteres combinando letras minúsculas e dígitos (0-9, a
+z). 
+• O detalhe da sessão (ou interface de fim de sessão equivalente) mostra o código para que o público possa 
+digitá-lo para coletar o selo. 
+• Um indicador de progresso no topo da visualização mostra "X de 16" selos coletados e uma barra de 
+progresso do Element <progress>. 
+• O formulário "Inserir código de presença" (input + ação de coletar) é colocado após a barra de progresso e 
+deve ficar fixo no topo da viewport (abaixo do Header do aplicativo) enquanto a grade de selos rola, para que 
+a Animation de coleta permaneça visível após o envio. O indicador de progresso não precisa ser fixo. 
+• A grade de selos usa um layout de 2 colunas no celular e um layout de 4 colunas no tablet. 
+• Os blocos de selos não coletados ficam esmaecidos; os selos coletados exibem o gráfico do selo. 
+• Quando um selo é coletado, uma Animation sutil e elegante é reproduzida (o gráfico do selo aumenta de 
+tamanho para se ajustar com um efeito de salto e partículas de fita). 
+• Uma entrada de código incorreta deve exibir uma mensagem de erro clara. 
+• Inserir um código já coletado deve fornecer um feedback claro (erro ou informação) sem contagem dupla. 
+• Os selos coletados devem persistir após recarregamentos de página (por exemplo, usando localStorage). 

@@ -1,0 +1,33 @@
+• Os usuários podem selecionar um arquivo de imagem ou capturar uma foto para compor com uma 
+sobreposição de moldura. 
+• O Element de entrada de arquivo deve restringir a seleção de arquivos apenas para arquivos de imagem 
+(image/*). 
+• A imagem carregada é dimensionada e centralizada sem distorção da proporção ou estiramento. 
+• A imagem carregada deve cobrir toda a área da tela (canvas) sem letterboxing ou espaços vazios. 
+• O canvas deve ser estilizado de forma responsiva para que caiba na viewport sem causar Horizontal Scroll na 
+página. 
+• A sobreposição de moldura fornecida é desenhada exatamente sobre a imagem do usuário; as dimensões 
+internas do canvas devem corresponder às dimensões nativas do arquivo PNG da moldura atualmente ativa. 
+• Os usuários podem selecionar um design de moldura a partir dos ativos de moldura fornecidos. Após 
+selecionar uma moldura, os usuários podem escolher entre a proporção Normal (1080 × 1080 px) e a 
+proporção Wide (1600 × 1080 px). 
+• Os designs de moldura podem fornecer um PNG Normal, um PNG Wide, ou ambos. Quando o usuário altera 
+a proporção, o canvas e a sobreposição de moldura devem mudar automaticamente para o PNG 
+correspondente ao design de moldura selecionado atualmente (por exemplo, bands → frame_bands.png ou 
+frame_wide_bands.png). 
+• Nem todo design de moldura possui ambas as proporções. Se o design selecionado não tiver uma variante 
+Normal, a opção Normal deve ser desativada e não deve ser selecionável. Se não tiver uma variante Wide, a 
+opção Wide deve ser desativada e não deve ser selecionável. 
+• Quando o usuário seleciona um design de moldura diferente que não suporta a proporção atualmente ativa, 
+o aplicativo deve mudar automaticamente para uma proporção disponível para esse design e carregar o PNG 
+correspondente. 
+• Os usuários podem compartilhar a imagem composta via Web Share API. 
+• Os usuários podem baixar a imagem composta. Clicar no Button “Download” aciona o download do 
+arquivo. 
+• O nome do arquivo exportado deve seguir o formato worldskills-shanghai-2026-[timestamp].png, onde 
+timestamp é uma string de data e hora local de 14 dígitos (YYYYMMDDHHMMSS). 
+• A detecção de recursos deve ser implementada antes de invocar a Web Share API. 
+• Se o Web Share não for suportado, um download automático de arquivo é acionado sem gerar erros de 
+JavaScript. 
+• O payload do Web Share deve incluir um título, uma mensagem de texto e a imagem composta como um 
+objeto File. 
