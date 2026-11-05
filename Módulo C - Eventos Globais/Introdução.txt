@@ -1,0 +1,230 @@
+Introdução  
+Uma aplicação de equipe apenas para intranet, com Server-Side Rendering, para gerenciar eventos globais e seus 
+recursos aninhados (salas, sessões, capacidades de ingressos, reservas), além de um diretório global de 
+palestrantes. O sistema deve aplicar regras de reserva dupla de sessão, capacidade de ingressos segura contra 
+concorrência e uma trilha de auditoria para criação/atualização/cancelamento de reservas. 
+• Aplicação com Server-Side Rendering e gerenciamento de sessão no lado do servidor. 
+• A equipe realiza a Authentication apenas com um número de funcionário (sem senha). O valor é composto 
+apenas por dígitos (payload de código de barras numérico). Inseri-lo simula a leitura de um código de barras 
+de ID de funcionário em um crachá da equipe. 
+• Todos os funcionários possuem as mesmas Permission (sem hierarquia de funções). 
+• Navegação de nível superior após o login: Eventos, Palestrantes, além de Logout (e Login quando 
+desconectado). Salas, sessões, capacidades de ingressos, reservas e o log de auditoria para aquele evento são 
+gerenciados sob um evento selecionado (não como itens de navegação de nível superior). 
+• Arquitetura da informação (resultado necessário): o produto é centrado no evento. Os funcionários devem 
+abrir um evento antes de gerenciar as salas, sessões, capacidades de ingressos, reservas ou o log de auditoria 
+de reservas desse evento. Não apresente Salas/Sessões/Reservas como áreas globais de nível superior paralelas 
+aos Eventos (exceto Palestrantes, que são globais e muitos-para-muitos com eventos). 
+• O log de auditoria é necessário apenas para criação, atualização e cancelamento de reservas. Outros CRUDs 
+não precisam de entradas de auditoria. 
+• A aplicação deve ser responsiva e acessível.
+
+Descrição do projeto e das tarefas 
+• O banco de dados deve ser projetado pelo competidor na Terceira Forma de Normalization (3NF). 
+• Restrições físicas de chave estrangeira e tipos de coluna corretos devem estar presentes. 
+• Por favor, produza db-dump.sql com esquema, FKs, dados iniciais (incluindo os três números de funcionário 
+fixos abaixo e exemplos de eventos). 
+
+Modelo e Relacionamentos 
+• Quase todos os dados operacionais estão sob um Evento. Exceção: Palestrantes são globais e vinculam-se a 
+muitos Eventos (muitos-para-muitos), porque o mesmo palestrante pode aparecer em vários eventos. 
+• Evento tem muitas Salas; Sala pertence a um Evento. 
+• Evento tem muitas Sessões; Sessão pertence a um Evento e opcionalmente a uma Sala daquele evento (a sala 
+pode ser nula). 
+• Evento ↔ Palestrantes: muitos-para-muitos (por exemplo, event_speaker). Sessão ↔ Palestrantes: muitos
+para-muitos (por exemplo, session_speaker). 
+• Os tipos de ingresso são fixos (hard-coded) como três códigos: early_bird (Early Bird), normal (Normal), vip 
+(VIP). Não há necessidade de implementar CRUD de tipo de ingresso arbitrário. 
+• Cada Evento armazena sua própria capacidade para cada um dos três tipos de ingresso (editável no back 
+office do evento). Assentos restantes = capacidade − soma das quantidades reservadas para aquele tipo, 
+contando apenas reservas ativas (não canceladas). 
+• Evento tem muitas Reservas. Uma reserva pertence a um Evento e registra quem está reservado e quantos 
+assentos de cada tipo de ingresso. Uma reserva tem um status como ativa ou cancelada; apenas reservas 
+ativas consomem capacidade. 
+• Cada Evento tem um fuso horário independente (id IANA, por exemplo, Asia/Shanghai, Europe/Berlin, 
+America/New_York). Você pode encontrar os ids IANA nos ativos de mídia. 
+• O início/fim da sessão deve ser armazenado no banco de dados como instantes UTC (UTC 
+DATETIME/TIMESTAMP, ou uma convenção UTC documentada equivalente). 
+• A interface do funcionário para criar, editar e listar sessões deve inserir e exibir horários no fuso horário do 
+evento pai (não UTC bruto, a menos que o fuso horário do evento seja UTC). 
+• Exemplo de avaliação: fuso horário do evento Asia/Shanghai (UTC+8, sem horário de verão). O funcionário 
+insere o início local 2026-09-22 09:00 → o banco de dados armazena 2026-09-22 01:00:00 UTC (ou 
+equivalente). A lista/detalhe da sessão mostra o horário local novamente para aquele evento. 
+• Não há necessidade de lidar com a alteração do fuso horário do evento após sua criação.
+
+Authentication para funcionários 
+• Acessar rotas protegidas do back-office sem Authentication deve retornar HTTP 401 e redirecionar para a 
+página de login. 
+• Formulário de login: apenas número do funcionário (simulação de leitura de código de barras). Os valores são 
+apenas dígitos (sem letras), correspondendo a um código de barras numérico típico impresso no crachá do 
+funcionário. Armazene e compare como uma string de dígitos. 
+• Os três números de funcionário a seguir são fixos para a competição e devem ser aceitos como logins de 
+funcionários válidos (insira-os no banco de dados independentemente das escolhas de esquema): 
+• 1001001 
+• 1001002 
+• 1001003 
+• Números de funcionário inválidos mostram um erro no contêiner de mensagens de erro. 
+• Após o login, a navegação superior persistente mostra Eventos, Palestrantes e Logout. 
+
+Gerenciamento de Eventos (Nível Superior) 
+• Os funcionários podem criar, listar, visualizar, atualizar e excluir eventos. 
+• Os campos do evento devem incluir pelo menos: nome/título e fuso horário (id IANA selecionável ou 
+inserível). Outros campos opcionais que um funcionário pode inserir: local/cidade, descrição. 
+• A partir de uma página de detalhes do evento (ou hub do evento), os funcionários podem gerenciar as Salas, 
+Sessões, capacidades de ingressos, Reservas e o log de Auditoria do evento. 
+• Capacidades de ingresso por evento: os funcionários podem editar os números inteiros de capacidade para 
+Early Bird, Normal e VIP. A capacidade não pode ser definida abaixo do número de assentos já reservados 
+para aquele tipo (rejeitar com erro claro / HTTP 422). 
+
+Gerenciamento de Salas (sob um evento) 
+• Os funcionários podem criar, listar, atualizar e excluir salas pertencentes ao evento selecionado. 
+• Os campos da sala devem incluir pelo menos um nome. 
+• A exclusão de uma sala é permitida mesmo se as sessões ainda a referenciarem. Ao excluir, toda sessão que 
+usava aquela sala deve ter sua sala definida como vazia/nula (a sessão permanece; o funcionário pode atribuir 
+outra sala mais tarde). 
+
+Gerenciamento de Palestrantes (nível superior, multi-evento) 
+• Os funcionários podem criar, listar, atualizar e excluir palestrantes na área global de Palestrantes (navegação 
+superior). 
+• Formulário de adicionar palestrante acessível via /speakers/new. 
+• O perfil do palestrante inclui biografia e foto de perfil. 
+• Foto de perfil: validar o tipo MIME real (não apenas a extensão). Permitidos: image/jpeg, image/png, 
+image/webp. Tamanho máximo de 2 MB. 
+• Palestrantes podem ser vinculados a múltiplos eventos (muitos-para-muitos). 
+• A exclusão de um palestrante é permitida. Após a exclusão, quaisquer links session_speaker (ou equivalente) 
+para esse palestrante devem ser removidos para que as sessões não façam mais referência ao palestrante 
+excluído (a sessão permanece; a lista de palestrantes nessa sessão fica vazia ou sem esse palestrante). 
+
+Gerenciamento de Sessões (sob um evento) 
+• A equipe pode criar, listar, atualizar e excluir sessões para o evento selecionado. 
+• Cada sessão pertence a exatamente um evento. Uma sessão pode ter uma sala daquele evento, ou nenhuma 
+sala (nula) após uma sala ter sido excluída ou se ainda não tiver sido atribuída. 
+• Início/fim da sessão: armazenar em UTC; a equipe insere/visualiza no fuso horário do evento pai (veja a seção 
+3). O tempo absoluto deve fazer o round-trip corretamente (local → UTC → local). 
+• O fim deve ser estritamente após o início (comparar como instantes absolutos); caso contrário, HTTP 422 do 
+servidor com um erro claro. 
+• Quando uma sala é definida, rejeitar o salvamento se essa sala já estiver sendo usada por outra sessão do 
+mesmo evento com um intervalo de tempo sobreposto. Sessões com sala nula ignoram verificações de 
+sobreposição de sala. 
+• Rejeitar o salvamento se qualquer palestrante atribuído já estiver atribuído a outra sessão sobreposta. 
+(Apenas lidar com conflito de horário do palestrante dentro de um evento. Não há necessidade de lidar ou 
+verificar qualquer conflito de horário de palestrante entre eventos) 
+• A equipe pode atribuir zero ou mais palestrantes a uma sessão. 
+
+Reservas/Inscrições (sob um evento) 
+• Sob um evento, a equipe pode listar todas as reservas para aquele evento. 
+• A equipe pode criar uma reserva para uma pessoa: nome completo do participante, e-mail e quantidades de 
+ingressos por tipo (quantos Early Bird, quantos Normal, quantos VIP). Pelo menos uma quantidade deve ser ≥ 
+1. A interface padrão pode pré-selecionar a quantidade Normal como 1 e as outras como 0. 
+• Nome e e-mail são ambos obrigatórios (não vazios após trim); o e-mail deve ter um formato válido. A 
+exclusividade do e-mail não é necessária. 
+• A equipe pode atualizar uma reserva (nome, e-mail e/ou quantidades por tipo de ingresso). 
+• A equipe pode cancelar uma reserva (por exemplo, definir o status como cancelado). Assentos cancelados 
+não devem mais contar para os totais reservados, para que a capacidade seja liberada para reservas futuras. 
+Linhas canceladas podem permanecer visíveis na lista para histórico. 
+• Uma reserva cancelada não pode ser reativada. 
+• O salvamento de criação/atualização deve falhar se o total reservado resultante de qualquer tipo de ingresso 
+(apenas ativos) exceder a capacidade desse tipo para o evento (HTTP 422, mensagem clara na mensagem de 
+erro). 
+• Em formulários/interface de reserva que oferecem tipos de ingresso, os tipos com 0 restante são desabilitados 
+e marcados como "Esgotado" (data-testid="ticket-sold-out" nas opções esgotadas, conforme aplicável). Ao 
+editar uma reserva existente, as quantidades já mantidas por essa reserva ainda podem ser editáveis, mesmo que o restante pareça 0 para novas vendas. Mas editar uma reserva existente ainda não pode aumentar as 
+quantidades acima das capacidades.
+
+API de Capacidade JSON Pública (sem Authentication) 
+Uma API JSON pública somente leitura (sem login) expõe a capacidade restante de ingressos. Use estes contratos 
+exatamente: 
+• GET /api/events — listar eventos com resumo de capacidade. 
+[ 
+] 
+{ 
+} 
+"id": 1, 
+"name": "WorldSkills Shanghai 2026 Opening", 
+"timezone": "Asia/Shanghai", 
+"tickets": { 
+"early_bird": { "capacity": 100, "reserved": 40, "remaining": 60 }, 
+"normal":     { "capacity": 200, "reserved": 200, "remaining": 0 }, 
+"vip":        { "capacity": 50,  "reserved": 10, "remaining": 40 } 
+} 
+• GET /api/events/{id} — evento único, mesma forma de objeto de ingresso que um Element de array acima. 
+HTTP 404 se ausente. 
+• As chaves early_bird, normal, vip são obrigatórias. remaining deve ser igual a capacity − reserved. Content
+Type da resposta: application/json. 
+• Esta API não requer Authentication (utilizável por um quiosque público ou site parceiro). É somente leitura; 
+mutações permanecem na interface da equipe.
+
+Logs de Auditoria (apenas reservas, sob o evento) 
+• Escreva uma linha de log de auditoria para cada criação, atualização e cancelamento de reserva. Nenhum 
+outro CRUD de entidade requer log de auditoria. 
+• Cada entrada de auditoria deve armazenar pelo menos: 
+• operator_employee_number — o número da equipe logada (1001001 / 1001002 / 1001003) 
+• action — um de: create, update, cancel 
+• entity_type — por exemplo, reservation 
+• entity_id — chave primária da reserva 
+• event_id — evento pai 
+• created_at — timestamp (UTC) 
+• summary — snapshot legível por humanos incluindo nome do participante, e-mail e quantidades por tipo 
+de ingresso 
+• Para atualização: inclua resumo antes e depois (ou before_json / after_json estruturado) para que os revisores 
+possam ver o que mudou. 
+• Para cancelamento: o resumo deve mostrar o nome cancelado, e-mail e quantidades liberadas. 
+• A interface do log de auditoria fica sob o evento, listando apenas as entradas de auditoria de reserva daquele 
+evento — não um item de navegação de Logs global de nível superior. Use data-testid="nav-event-logs" (ou 
+controle equivalente na página do evento com data-testid="event-audit-log"). 
+
+Especificações de Teste Automatizado 
+• A entrada do número do funcionário no login deve usar data-testid="login-emp-num". 
+• O Button de login deve usar data-testid="login-btn". 
+• O controle de logout deve usar data-testid="logout-btn". 
+• Navegação — Eventos deve usar data-testid="nav-events". 
+• Navegação — Palestrantes deve usar data-testid="nav-speakers". 
+• A entrada de nome/título do evento deve usar data-testid="event-name". 
+• A entrada/seleção de fuso horário do evento deve usar data-testid="event-timezone". 
+• O Button de envio do evento deve usar data-testid="event-submit-btn". 
+• A entrada de capacidade Early Bird do evento deve usar data-testid="event-cap-early-bird". 
+• A entrada de capacidade Normal do evento deve usar data-testid="event-cap-normal". 
+• A entrada de capacidade VIP do evento deve usar data-testid="event-cap-vip". 
+• A sub-navegação do evento — Log de auditoria (sob o evento) deve usar data-testid="nav-event-logs". 
+• O contêiner da lista de log de auditoria do evento deve usar data-testid="event-audit-log". 
+• A entrada de nome da sala deve usar data-testid="room-name". 
+• O Button de envio da sala deve usar data-testid="room-submit-btn". 
+• A entrada de título da sessão deve usar data-testid="session-title". 
+• A seleção de sala da sessão deve usar data-testid="session-room". 
+• A seleção de palestrante da sessão deve usar data-testid="session-speaker". 
+• A data e hora de início da sessão deve usar data-testid="session-start". 
+• A data e hora de término da sessão deve usar data-testid="session-end". 
+• O Button de envio da sessão deve usar data-testid="session-submit-btn". 
+• A entrada de nome do participante da inscrição deve usar data-testid="registration-name". 
+• A entrada de e-mail da inscrição deve usar data-testid="registration-email". 
+• A quantidade Early Bird da inscrição deve usar data-testid="registration-qty-early-bird". 
+• A quantidade Normal da inscrição deve usar data-testid="registration-qty-normal". 
+• A quantidade VIP da inscrição deve usar data-testid="registration-qty-vip". 
+• O Button de envio da inscrição deve usar data-testid="registration-submit-btn". 
+• O Button de cancelamento da inscrição deve usar data-testid="registration-cancel-btn". 
+• A opção de ingresso esgotado deve usar data-testid="ticket-sold-out". 
+• O contêiner de mensagem de erro deve usar data-testid="error-message".
+
+Instruções ao Participante 
+• Você precisa fazer o commit do seu projeto no repositório git que você criou na plataforma de submissão. 
+• Forneça db-dump.sql com esquema, restrições, dados iniciais (deve incluir os funcionários 1001001, 
+1001002, 1001003) e registros de exemplo 
+• Repositório Git com commits significativos. 
+• Por favor, acesse o painel da plataforma de submissão usando as credenciais que você recebeu. 
+• Por favor, inclua um expert_readme.txt sobre como colocar seu projeto em funcionamento e onde acessar 
+seu projeto.
+
+
+Lista de verificação de implementação 
+• Login via código de barras numérico do funcionário (1001001–1001003); Permission iguais. 
+• Navegação superior: Eventos, Palestrantes, Logout (sem Logs globais); hub centrado no evento para recursos 
+aninhados.
+• CRUD de evento + fuso horário IANA por evento + capacidades por tipo; Sala/Sessão/Reserva/Auditoria sob o 
+evento. 
+• Excluir sala → sala das sessões relacionadas definida como nula; excluir palestrante → limpar links de 
+palestrante da sessão. 
+• Sessões: UTC no banco de dados; inserir/exibir no fuso horário do evento; regras de sobreposição de 
+sala/palestrante. 
+• Reservas: nome + e-mail + quantidades; editar + cancelar. 
+• GET público /api/events e GET /api/events/{id} JSON conforme especificado (sem autenticação). 
+• Auditoria apenas de criar/atualizar/cancelar reserva; listar sob o evento. 
