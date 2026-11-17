@@ -1,0 +1,77 @@
+Introdução  
+Um desafio de design apenas com CSS. Os competidores recebem um único arquivo HTML bloqueado que não 
+deve ser editado (exceto pelo caminho do arquivo de tema CSS vinculado). O objetivo é implementar quatro 
+temas visuais distintos e um conjunto completo de UI Components interativos — abas, slider, lightbox de galeria, 
+dropdown, acordeão e estados de formulário — usando apenas CSS. Nenhum JavaScript é usado em qualquer 
+parte deste módulo. 
+
+Descrição do projeto e das tarefas 
+• Os arquivos css_only_{theme}.html fornecidos compartilham uma estrutura HTML bloqueada. Não modifique 
+o HTML, exceto pelo caminho do arquivo CSS. 
+• Todo o estilo deve ser escrito em um único arquivo CSS por tema. 
+• Não são permitidos arquivos CSS ou JavaScript externos. 
+• Nenhum JavaScript é permitido ou necessário: toda interação (abas, slider, lightbox, dropdown, acordeão) e 
+todo esquema de cores deve funcionar apenas com CSS. 
+• Apenas o Modelo C (Cyber) possui dois esquemas de cores: o escuro é o padrão, e uma variante clara é 
+aplicada automaticamente quando o sistema do usuário está configurado para preferir cores claras; não há 
+alternância manual. Os modelos A, B e D possuem um único esquema de cores claras — nenhum esquema 
+escuro é necessário para eles. 
+• Arquivos fornecidos: este documento; quatro arquivos HTML bloqueados (css_only_simple.html, 
+css_only_elegant.html, css_only_cyber.html, css_only_colorful.html); a pasta images/; quatro arquivos de 
+especificação por tema (spec/); capturas de tela de referência (screenshots/).
+
+UI Components necessários 
+O HTML bloqueado já contém cada Element e gancho que esses componentes precisam. A seção 2.1 lista o que 
+é fornecido — apenas para referência, você não deve e não precisa recriá-lo. A seção 2.2 lista o que seu CSS 
+deve alcançar. 
+
+Já fornecido pelo HTML bloqueado (para referência — nenhum trabalho necessário) 
+• Estado de aba e slider: inputs de rádio com rótulos correspondentes já estão no lugar para as três abas e os 
+três slides. 
+• Lightbox: um Element de sobreposição .lightbox por imagem da galeria (#lb-1 a #lb-6), cada um vinculado a 
+partir de sua miniatura e contendo um link .lightbox-close de volta para #gallery. 
+• Ganchos de dados: itens da galeria carregam data-size e data-category; cartões de recursos carregam data
+icon e data-tier; estatísticas carregam data-value; itens da linha do tempo carregam data-year e data
+highlight; a tabela de preços contém uma célula .recommended. 
+• O acordeão de FAQ é construído com <details>/<summary>; um item está aberto por padrão. 
+• Os links do dropdown de escolha de tema já apontam para os quatro arquivos HTML de tema. 
+• O formulário de contato já contém campos de nome, e-mail, mensagem e quantidade; o input de 
+quantidade é numérico com min 1 e max 10, e os atributos de validação nativos estão no lugar. 
+• Links mailto: e .pdf estão presentes no conteúdo da página. 
+
+O que seu CSS deve alcançar 
+• Abas — apenas o painel selecionado é visível; o rótulo da aba ativa é destacado. 
+• Slider de fotos — três slides traduzidos horizontalmente com uma transição de deslizamento; os controles 
+numerados (1–3) selecionam um slide e o controle ativo é destacado. 
+• Galeria responsiva — seis imagens em um mosaico escalonado; itens grandes (data-size="large") abrangem 
+mais trilhas; a grade se adapta de 1 coluna no celular para 2 no tablet e 3–4 no desktop. 
+• Lightbox de imagem — clicar em uma imagem da galeria abre sua sobreposição Full Screen usando apenas 
+CSS (sem JavaScript); o controle de fechar retorna para a galeria. 
+• Ícones de cartão de recursos — o ícone de cada cartão é produzido por CSS a partir de seu atributo data
+icon. 
+• Linha de estatísticas — quatro figuras com rótulos; as figuras podem ser mostradas por CSS usando o 
+atributo data-value de cada figura. 
+• Linha do tempo — cada emblema de ano é produzido por CSS a partir do atributo data-year do item; 
+entradas data-highlight são enfatizadas. 
+• Tabela de preços — a linha inteira contendo a célula .recommended é visualmente enfatizada (por exemplo, 
+ampliada ou recolorida). 
+• Acordeão de FAQ — itens expansíveis estilizados; o item aberto por padrão vem do HTML. 
+• Dropdown de escolha de tema — abre ao passar o mouse e no Focus do teclado. 
+• Formulário de contato — o estilo de erro aparece apenas após a interação do usuário ou uma tentativa de 
+envio, nunca no carregamento da página; a validação nativa do navegador bloqueia o envio enquanto os 
+campos estiverem inválidos. 
+• Navegação na página — links de navegação, o dropdown de escolha de tema e outros links âncora rolam 
+suavemente para seus destinos em vez de pular instantaneamente. 
+• Ícones de link — links para endereços de e-mail são prefixados com um ícone de e-mail e links para arquivos 
+.pdf com um ícone de documento, ambos adicionados por CSS.
+
+Arquitetura CSS 
+• Os inputs de rádio de manutenção de estado devem ser ocultados da visualização sem desativá-los: cliques 
+em rótulos, interação com teclado e estilo baseado em seu estado devem continuar funcionando — ocultá
+los com display: none não é aceitável. 
+• Galeria: com exatamente 6 itens, o mosaico escalonado é mostrado; com qualquer outra contagem, a galeria 
+volta para a grade responsiva regular sem abrangência. 
+• Navegação: com 5 ou mais itens, os links usam dimensionamento compacto; com 4 ou menos, aplica-se o 
+dimensionamento padrão do tema. Os tamanhos exatos padrão e compacto são especificados por tema. 
+• Nota: o HTML bloqueado é fornecido com 6 itens de galeria e 5 itens de navegação, portanto, as capturas de 
+tela de referência mostram o mosaico e o dimensionamento de navegação compacto.

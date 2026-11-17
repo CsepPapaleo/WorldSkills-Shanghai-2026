@@ -1,0 +1,30 @@
+Temas fornecidos 
+• Modelo A - Simples (css_only_simple) - navegação horizontal superior fixa (sticky). Animation Effect 
+característico: preenchimento por varredura (sweep-fill) em Button (um preenchimento varre o elemento ao 
+passar o mouse e no Focus do teclado). 
+• Template B - Elegant (css_only_elegant) - navegação em barra lateral esquerda fixa. Animation Effect 
+característico: filter card ao passar o mouse em imagens da galeria (escala de cinza e desfoque se 
+transformam em cores completas, com uma sobreposição de legenda mostrando a data-category de cada 
+item). 
+• Template C - Cyber (css_only_cyber) - dock de navegação inferior fixa. Animation Effect característico: 
+Animation de digitação de terminal no eyebrow do Header (uma revelação letra por letra com um cursor em 
+movimento). 
+• Template D - Colorful (css_only_colorful) - slides de viewport completo com scroll-snapping obrigatório (um 
+slide por viewport, o scroll se ajusta slide a slide) e um trilho de navegação direito fixo. O efeito de snap é um 
+recurso obrigatório e marcável separadamente deste tema. Animation Effect característico: anel de brilho 
+pulsante (um anel brilhante com Animation) no plano de preços recomendado.
+ 
+Nota: Cada tema fornecido demonstra uma arquitetura de layout distinta e seu próprio Animation Effect 
+característico (sweep-fill, filter card, digitação, pulso) - não apenas mudanças de cor e tipografia. Você deve 
+alcançar diferenças equivalentes de layout e efeito usando apenas CSS na estrutura HTML compartilhada. 
+Os valores de design são fornecidos como variáveis CSS nomeadas escritas com um traço duplo, como --color
+bg. Defina cada variável uma vez com o nome e valor exatos mostrados nas tabelas, então use essas variáveis 
+onde quer que a especificação as referencie, em vez de repetir valores literais. Os nomes e valores das variáveis 
+nas tabelas são necessários exatamente como escritos; qualquer coisa que a especificação não mencione fica a 
+seu critério, desde que o resultado corresponda às capturas de tela de referência. 
+A especificação completa de cada tema é fornecida como um arquivo de texto na pasta spec/ (theme-a
+simple.txt, theme-b-elegant.txt, theme-c-cyber.txt, theme-d-colorful.txt), e capturas de tela de referência 
+capturadas em um viewport de 1280 px são fornecidas na pasta screenshots/. Esses arquivos fazem parte deste 
+projeto de teste e são tão vinculativos quanto este documento. Os Templates A, B e D têm um único esquema 
+de cores claro; apenas o Template C tem dois esquemas (escuro padrão, variante clara) e as capturas de tela 
+mostram ambos.

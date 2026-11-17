@@ -1,0 +1,9 @@
+Instruções ao Participante 
+• Você precisa enviar seu projeto para o repositório git que você criou na plataforma de submissão. 
+• Por favor, acesse o painel da plataforma de submissão usando as credenciais que você recebeu. 
+• Mantenha os arquivos HTML: css_only_simple.html, css_only_elegant.html, css_only_cyber.html, 
+css_only_colorful.html — inalterados; a única diferença permitida entre eles é o caminho do arquivo CSS 
+vinculado. 
+• Forneça seus arquivos CSS: css_only_simple.css, css_only_elegant.css, css_only_cyber.css, 
+css_only_colorful.css - escritos por você, um arquivo CSS por tema. 
+• A pasta de imagens fornecida (images/) - usada como está; não a renomeie nem a mova.
